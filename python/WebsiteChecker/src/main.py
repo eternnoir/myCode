@@ -4,6 +4,7 @@ Created on 2013/5/12
 @author: frankwang
 '''
 import httplib
+import urllib2
 import time
 import socket
 from threading import Thread
@@ -14,17 +15,17 @@ def webchecker(host):
         host = host.strip()
         host = host.replace("http://",'')
         try:
-            conn = httplib.HTTPConnection(host)
+            conn = httplib.HTTPConnection(host,timeout=100)
             conn.request("HEAD", "/")
             r1 = conn.getresponse()
             if r1.status==200 :
                 print host+" -->OK"
                 return True
             else:
-                print host+" -->DOWN"
+                print host+" -->DOWN "+str(r1.status)+" "+ r1.reason
                 return False
         except (httplib.HTTPException, socket.error) as ex:
-            print host+" -->DOWN"
+            print host+" -->DOWN "+"Error: %s" % ex
             return False
 
 if __name__ == '__main__':
@@ -32,11 +33,9 @@ if __name__ == '__main__':
     hosts = []
     alive = 0 
     down = 0
-    with open("host.txt", 'rt') as f:
-        s= f.readlines()
-        for k in s:
-            if k.find("http") != -1:
-                hosts.append(k)
+    for line in urllib2.urlopen(URL_LIST_URL)
+       if line.find("http") != -1:
+            hosts.append(line)
         
     for i in hosts:
         t = Thread(target=webchecker, args=(i,))
