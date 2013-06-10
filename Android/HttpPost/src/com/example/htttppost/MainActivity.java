@@ -39,6 +39,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		EditText _valueText = (EditText) findViewById(R.id.valueText);
 		final String _url = _urlText.getText().toString();
 		final String _value = _valueText.getText().toString();
+		
+		// Handler for httpservice thread
 		final Handler mHandler = new Handler() { 
 
 		     public void handleMessage(Message msg) { 
@@ -46,6 +48,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				_result.setText((CharSequence) msg.getData().get("1"));
 		     } 
 		 };
+		 
+		 // http thread cant run on main thread
 		Thread thread = new Thread(){
 		public void run(){
 			Bundle bundle = new Bundle();
