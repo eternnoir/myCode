@@ -13,7 +13,7 @@ import org.apache.http.util.EntityUtils;
 
 public class httpService {
 
-	public String httpGet(String url,String value){
+	public String httpServiceGet(String url,String value){
 		String _ret = new String();
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(url+"?"+value);

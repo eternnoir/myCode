@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		Thread thread = new Thread(){
 		public void run(){
 			Bundle bundle = new Bundle();
-			bundle.putString("1", _hs.httpGet(_url, _value));	
+			bundle.putString("1", _hs.httpServiceGet(_url, _value));	
 			Message msg = new Message();
 			msg.setData(bundle);
 			mHandler.sendMessage(msg);
