@@ -31,6 +31,7 @@ public class httpService {
 			return "ERROR";
 		}
 		catch (Exception e){
+			e.printStackTrace();
 			return"NOooooo \n check your url";
 		}
 		return _ret;

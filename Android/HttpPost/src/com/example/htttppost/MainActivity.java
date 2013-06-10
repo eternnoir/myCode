@@ -1,6 +1,8 @@
 package com.example.htttppost;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -32,12 +34,27 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View arg0) {
-		httpService _hs = new httpService();
+		final httpService _hs = new httpService();
 		EditText _urlText = (EditText) findViewById(R.id.urlText);
 		EditText _valueText = (EditText) findViewById(R.id.valueText);
-		String _url = _urlText.getText().toString();
-		String _value = _valueText.getText().toString();
-		TextView _result = (TextView) findViewById(R.id.resultTextView);
-		_result.setText(_hs.httpGet(_url, _value));	
+		final String _url = _urlText.getText().toString();
+		final String _value = _valueText.getText().toString();
+		final Handler mHandler = new Handler() { 
+
+		     public void handleMessage(Message msg) { 
+		 		TextView _result = (TextView) findViewById(R.id.resultTextView);
+				_result.setText((CharSequence) msg.getData().get("1"));
+		     } 
+		 };
+		Thread thread = new Thread(){
+		public void run(){
+			Bundle bundle = new Bundle();
+			bundle.putString("1", _hs.httpGet(_url, _value));	
+			Message msg = new Message();
+			msg.setData(bundle);
+			mHandler.sendMessage(msg);
+		}
+		};
+		thread.start();
 	}
 }
