@@ -82,7 +82,6 @@ public class posChecker extends Service{
      
     private Runnable showTime = new Runnable() {
        public void run() {
-            //log目前時間
     	   try{
         	   String provider = locationMgr.getBestProvider(new Criteria(), true);
         	   Location location = locationMgr.getLastKnownLocation(provider);
@@ -92,6 +91,7 @@ public class posChecker extends Service{
     	   catch(Exception e) {
                e.printStackTrace();
     	   }
+    	   //check distance
            Log.i("Distance:", ""+checkDis(30.0, -121.0, _lat, _lon)); 
            handler.postDelayed(this, 1000);
         }
