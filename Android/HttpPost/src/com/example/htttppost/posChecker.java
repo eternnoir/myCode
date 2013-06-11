@@ -1,25 +1,20 @@
 package com.example.htttppost;
 
-import java.util.Date;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Handler;
-import android.util.FloatMath;
 import android.util.Log;
 
 public class posChecker extends Service{
 	private Handler handler = new Handler();
 	private double _lon;
 	private double _lat;
-	private LocationManager locationMgr;
 	private final double EARTH_RADIUS = 6378137.0;
 	
 	private final LocationListener locationListener = new LocationListener() {
