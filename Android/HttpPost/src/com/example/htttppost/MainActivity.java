@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +29,10 @@ public class MainActivity extends Activity implements OnClickListener{
         _sendButton = (Button) findViewById(R.id.sendButton);
         assert(_sendButton != null);
         _sendButton.setOnClickListener(this);
+        
+        //create posChecker Services
+        Intent intent = new Intent(MainActivity.this, posChecker.class);
+        startService(intent);
         return true;
     }
 
