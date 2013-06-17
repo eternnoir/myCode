@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements OnClickListener{
 
 	private Button _sendButton;
+	private static final String MAP_URL = "file:///android_asset/map.html";
+	private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,11 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View arg0) {
+        webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);       
+        webView.loadUrl(MAP_URL);
+		
+		setContentView(R.layout.test_layout);/*
 		final httpService _hs = new httpService();
 		EditText _urlText = (EditText) findViewById(R.id.urlText);
 		EditText _valueText = (EditText) findViewById(R.id.valueText);
@@ -64,6 +72,6 @@ public class MainActivity extends Activity implements OnClickListener{
 			mHandler.sendMessage(msg);
 		}
 		};
-		thread.start();
+		thread.start();*/
 	}
 }
