@@ -2,7 +2,9 @@
 
 # C extensions
 *.so
-
+.idea/
+*.db
+*.db-journal
 # Packages
 *.egg
 *.egg-info
