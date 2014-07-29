@@ -25,6 +25,10 @@ def StoreTAIEXDailyToDb(connectionStr,fromDate,endDate):
 def __storeObjectToDb(engine,object):
     Session = sessionmaker(bind=engine)
     session = Session()
+    results = session.query(model.trad.Trad).filter_by(date=object.date).all()
+    if len(results)>0:
+        session.rollback()
+        return
     print object.date
     session.add(object)
     session.commit()
