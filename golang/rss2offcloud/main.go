@@ -45,8 +45,9 @@ type SourceConfig struct {
 }
 
 type TargetConfig struct {
-	Name string `json:"name"`
-	Url  string `json:"url"`
+	Name   string            `json:"name"`
+	Url    string            `json:"url"`
+	Params map[string]string `json:"params"`
 }
 
 func main() {
@@ -100,7 +101,7 @@ func buildSources(cfg *Config, result chan Feed) []*Receiver {
 func buildTarget(cfg *Config, result chan Feed) []*Target {
 	ret := make([]*Target, len(cfg.Targets))
 	for i, t := range cfg.Targets {
-		ret[i] = &Target{Url: t.Url, Name: t.Name}
+		ret[i] = &Target{Url: t.Url, Name: t.Name, Params: t.Params}
 	}
 	return ret
 }

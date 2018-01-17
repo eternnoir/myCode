@@ -10,14 +10,18 @@ import (
 )
 
 type Target struct {
-	Name string
-	Url  string
+	Name   string
+	Url    string
+	Params map[string]string
 }
 
 func (t *Target) Fire(f Feed) error {
 	fmt.Println(t.Name, " Fire ", f.Title)
 	form := url.Values{}
 	form.Add("url", f.Link)
+	for k, v := range t.Params {
+		form.Add(k, v)
+	}
 	body := bytes.NewBufferString(form.Encode())
 	rsp, err := http.Post(t.Url, "application/x-www-form-urlencoded", body)
 	if err != nil {
