@@ -12,14 +12,15 @@ func NewReceiver(cfg SourceConfig, it, igd time.Duration, rc chan Feed) *Receive
 }
 
 type Receiver struct {
-	Name           string
-	Url            string
-	Interval       time.Duration
-	IgnoreDuration time.Duration
-	resultChan     chan Feed
+	Name            string
+	Url             string
+	Interval        time.Duration
+	IgnoreDuration  time.Duration
+	resultChan      chan Feed
+	latestFetchDate time.Time
 }
 
-func (r Receiver) Start() {
+func (r *Receiver) Start() {
 	for {
 		feeds, err := r.Fetch()
 		if err != nil {
@@ -34,7 +35,7 @@ func (r Receiver) Start() {
 	}
 }
 
-func (r Receiver) Fetch() ([]Feed, error) {
+func (r *Receiver) Fetch() ([]Feed, error) {
 	channel, err := rss.Read(r.Url)
 	if err != nil {
 		fmt.Println(err)
@@ -51,7 +52,7 @@ func (r Receiver) Fetch() ([]Feed, error) {
 			fmt.Println("Parse PubDate fail.", err.Error())
 			continue
 		}
-		if pubDate.Add(r.IgnoreDuration).Before(time.Now()) {
+		if pubDate.Add(r.IgnoreDuration).Before(time.Now()) || pubDate.Before(r.latestFetchDate) {
 			continue
 		}
 		fmt.Println(r.Name, " fetched ", item.Title)
@@ -60,5 +61,6 @@ func (r Receiver) Fetch() ([]Feed, error) {
 			ret = append(ret, feed)
 		}
 	}
+	r.latestFetchDate = time.Now()
 	return ret, nil
 }
