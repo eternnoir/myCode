@@ -1,0 +1,35 @@
+{
+    "interval":"10s",
+    "sources":[
+        {
+            "name":"動漫國字幕組 - 龍王的工作",
+            "url": "http://share.dmhy.org/topics/rss/rss.xml?keyword=%E9%BE%8D%E7%8E%8B+%E7%B9%81%E9%AB%94+1080P&sort_id=0&team_id=303&order=date-desc"
+        },
+        {
+            "name":"漫游字幕组 - 庫洛魔法使 透明牌篇",
+            "url":"https://share.dmhy.org/topics/rss/rss.xml?keyword=%E5%BA%AB%E6%B4%9B%E9%AD%94%E6%B3%95%E4%BD%BF+%E9%80%8F%E6%98%8E+%E7%B9%81%E9%AB%94&sort_id=0&team_id=134&order=date-desc"
+        },
+        {
+            "name":"動漫國字幕組 - OVERLORD 第二季",
+            "url":"https://share.dmhy.org/topics/rss/rss.xml?keyword=overlor+%E4%BA%8C%E5%AD%A3+%E7%B9%81%E9%AB%94&sort_id=0&team_id=303&order=date-desc"
+        },
+        {
+            "name": "Dymy字幕組 - 七大罪 戒律的復活",
+            "url":"https://share.dmhy.org/topics/rss/rss.xml?keyword=%E4%B8%83%E5%A4%A7%E7%BD%AA+%E6%88%92%E5%BE%8B+BIG5&sort_id=0&team_id=88&order=date-desc"
+        },
+        {
+            "name":"极影字幕社 DARLING in the FRANXX",
+            "url":"https://share.dmhy.org/topics/rss/rss.xml?keyword=DARLING+in+the+FRANXX&sort_id=0&team_id=185&order=date-desc"
+        },
+        {
+            "name":"極影字幕社 - 紫羅蘭永恆花園",
+            "url":"https://share.dmhy.org/topics/rss/rss.xml?keyword=%E7%B4%AB%E7%BE%85%E8%98%AD+BIG5&sort_id=0&team_id=185&order=date-desc"
+        }
+    ],
+    "targets":[
+        {
+            "name": "offcloud",
+            "url": "https://offcloud.com/api/cloud/download?apikey=<YOURAPIKEY>"
+        }
+    ]
+}
