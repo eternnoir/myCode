@@ -46,6 +46,8 @@ func (r *Receiver) Fetch() ([]Feed, error) {
 
 	ret := make([]Feed, 0)
 
+	var maxPubTime time.Time
+
 	for _, item := range channel.Item {
 		pubDate, err := item.PubDate.Parse()
 		if err != nil {
@@ -60,7 +62,13 @@ func (r *Receiver) Fetch() ([]Feed, error) {
 			feed := Feed{Link: enrouse.URL, Title: item.Title}
 			ret = append(ret, feed)
 		}
+
+		if pubDate.After(maxPubTime) {
+			maxPubTime = pubDate
+		}
 	}
-	r.latestFetchDate = time.Now()
+	if maxPubTime.After(r.latestFetchDate) {
+		r.latestFetchDate = maxPubTime.Add(10 * time.Second)
+	}
 	return ret, nil
 }
