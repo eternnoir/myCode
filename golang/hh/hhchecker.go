@@ -118,7 +118,7 @@ func (h *Hhchecker) insertWorkLog(time time.Time, dt, wi, wt string) error {
 		return err
 	}
 	if !ret.Status && strings.Contains(ret.ErrorMessage, "已有請假紀錄，不需打卡!") {
-		fmt.Printf("Already taken a leave. %s", ret.ErrorMessage)
+		fmt.Printf("Already taken a leave. %s\n", ret.ErrorMessage)
 		return nil
 	}
 	if !ret.Status {
