@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -110,10 +111,15 @@ func (h *Hhchecker) insertWorkLog(time time.Time, dt, wi, wt string) error {
 		bodyBytes, _ := ioutil.ReadAll(resp.Body)
 		return fmt.Errorf("request fail. %s", string(bodyBytes))
 	}
+
 	ret := &WorkTimeLogResp{}
 	err = json.NewDecoder(resp.Body).Decode(ret)
 	if err != nil {
 		return err
+	}
+	if !ret.Status && strings.Contains(ret.ErrorMessage, "已有請假紀錄，不需打卡!") {
+		fmt.Printf("Already taken a leave. %s", ret.ErrorMessage)
+		return nil
 	}
 	if !ret.Status {
 		return fmt.Errorf("checkin fail %s", ret)
